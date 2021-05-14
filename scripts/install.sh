@@ -9,6 +9,8 @@ files=(
 		inputrc
 		bashrc
 		bashrc.d
+        zshrc
+        zshrc.d
         pythonrc.py
         Xdefaults
       )
