@@ -21,3 +21,6 @@ env_unset="ls_color_opt:color_opt:$env_unset"
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+alias dirl='dirs -v'
+alias dirp='dirs -p'

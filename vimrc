@@ -16,7 +16,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'cespare/vim-toml'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'sirtaj/vim-openscad'
-Bundle 'klen/python-mode'
+"Bundle 'klen/python-mode'
 Bundle 'othree/xml.vim'
 
 filetype plugin indent on " required!
@@ -64,6 +64,9 @@ filetype plugin indent on " required!
     syntax on
     filetype indent on  " autoindent based on filetype 
     filetype plugin on  " allow filetype plugins
+
+" Misc
+    set mmp=5000 " 'maxmemorypattern' (KB) mem limit for language plugins
 
 """""""""""""""""""""""""""""ADVANCED SETTINGS"""""""""""""""""""""""""""
 
@@ -172,6 +175,8 @@ filetype plugin indent on " required!
 "
 
 let g:go_fmt_command = "goimports"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 "
 " python-mode
@@ -216,11 +221,7 @@ let g:pymode_rope_regenerate_on_write = 0
 
     " write/quit controls
     map <leader>cg :w<return>
-    map <leader>cC :wq<return>
-    map <leader>cr :q<return>
     map <leader>cq :q<return>
-    map <leader>cR :q!<return>
-    map <leader>cQ :q<return>
 
     " go language leader bindings
     map <leader>gob :GoBuild<return>
@@ -229,9 +230,11 @@ let g:pymode_rope_regenerate_on_write = 0
     map <leader>c <C-w>
 
     " quick macros
-    map <leader>n qq
-    map <leader>s q
+    map <leader>m qq
     map <leader><return> @q
+
+    " syntax highlighting
+    map <leader>ss :syntax sync fromstart<return>
 
     " command/search buffer
     map <leader>. q:i!<esc>
@@ -261,18 +264,8 @@ let g:pymode_rope_regenerate_on_write = 0
     " NERDTree toggle mapping
     map <leader>d :NERDTreeToggle<return>
 
-    " Copy paste map
-    if platform == "MacOSX"
-        map <leader>p A<return><esc>V!pbpaste<return>
-        map <leader>P a<return><return><esc>d0kV!pbpaste<return>
-        map <leader>y V!pbcopy<return>u
-        map <leader>x V!pbcopy<return>
-    elseif platform == "Linux" " This does not work as well as in Mac OS X.
-        map <leader>p A<return><esc>V!xclip -o<return>
-        map <leader>P a<return><return><esc>d0kV!xclip -o<return>
-        map <leader>y V!xclip -i<return>u
-        map <leader>x V!xclip -i<return>
-    endif " TODO: Add other operating systems if possbile.
+    " Copy/Paste mappings
+    map <leader>p "0p
 
     "format mapping (<leader>f)
     if has("autocmd")
@@ -312,8 +305,20 @@ if has("autocmd")
     au BufNewFile,BufRead *.rb,*.erb,*.rhtml set tabstop=2
     au BufNewFile,BufRead *.rb,*.erb,*.rhtml set shiftwidth=2
     au BufNewFile,BufRead *.go set noexpandtab
+    au BufNewFile,BufRead *.go set tabstop=4
+    au BufNewFile,BufRead *.go set shiftwidth=4
     au BufNewFile,BufRead *.scala,*.sbt set tabstop=2
     au BufNewFile,BufRead *.scala,*.sbt set shiftwidth=2
+    au BufNewFile,BufRead *.yml,*.yaml,*.yml.j2,*.yaml.j2 set tabstop=2
+    au BufNewFile,BufRead *.yml,*.yaml,*.yml.j2,*.yaml.j2 set shiftwidth=2
+    au BufNewFile,BufRead *.zy set noexpandtab
+    au BufNewFile,BufRead *.tf,*.tfvars set expandtab
+    au BufNewFile,BufRead *.tf,*.tfvars set shiftwidth=2
+    au BufNewFile,BufRead *.tf,*.tfvars set tabstop=2
+
+    au FileType lisp set expandtab
+    au FileType lisp set tabstop=2
+    au FileType lisp set shiftwidth=2
 
     " au FileType python au BufWritePre <buffer> silent execute "normal! mZHmY:%!autopep8 --max-line-length=100 -\<return>`Yzt`Z"
     " au FileType python au BufWritePre <buffer> call AutoPEP8()

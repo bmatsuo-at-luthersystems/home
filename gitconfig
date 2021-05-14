@@ -1,6 +1,6 @@
 [user]
-	name = Bryan Matsuo
-    email = bryan.matsuo@gmail.com
+	name = bmatsuo-at-luthersystems
+	email = bryan.matsuo@luthersystems.com
 
 [color]
     ui = true
@@ -36,3 +36,10 @@
 
 [core]
 	excludesfile = ~/.config/git/gitignore
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[url "git@bitbucket.org:"]
+	insteadOf = https://bitbucket.org/

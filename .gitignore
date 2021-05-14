@@ -1,3 +1,4 @@
 config/transmission-deamon
 config/camlistore
+config/iterm2
 rtorrent.rc
